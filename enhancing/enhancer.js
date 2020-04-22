@@ -14,7 +14,20 @@ function succeed(item) {
 }
 
 function fail(item) {
-  return { ...item };
+  const newItem = {...item};
+  if(newItem.enhancement < 15) {
+    newItem.durability -= 5;
+    // make sure we don't get durability below 0
+    newItem.durability = newItem.durability < 0 ? 0 : newItem.durability;
+  } else if(newItem.enhancement >= 15) {
+    newItem.durability -= 10;
+    // make sure we don't get durability below 0
+    newItem.durability = newItem.durability < 0 ? 0 : newItem.durability;
+    if(newItem.enhancement > 16){
+      newItem.enhancement -= 1;
+    }
+  }
+  return newItem;
 }
 
 function repair(item) {
